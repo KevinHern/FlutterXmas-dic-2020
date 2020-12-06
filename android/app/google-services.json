@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "116704522098",
+    "project_id": "xmas2020-56efa",
+    "storage_bucket": "xmas2020-56efa.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:116704522098:android:3325e4a979aa31549c37eb",
+        "android_client_info": {
+          "package_name": "com.guatemala.xmas_2020"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "116704522098-19aks1n7reng7537jvajk3idcuosqhdc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA5QtsFyaFk7jVKp1x97sj8DKwgnmof7Qg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "116704522098-19aks1n7reng7537jvajk3idcuosqhdc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
