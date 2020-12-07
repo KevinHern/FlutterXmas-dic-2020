@@ -5,6 +5,7 @@ import 'package:xmas_2020/templates/dialog_template.dart';
 // Routes
 import 'package:xmas_2020/profile/profile_screen.dart';
 import 'package:xmas_2020/comment/opinions.dart';
+import 'package:xmas_2020/quiz/quiz_main_screen.dart';
 
 // Templates
 import 'package:xmas_2020/templates/container_template.dart';
@@ -66,7 +67,7 @@ class MainScreenState extends State<MainScreen> with SingleTickerProviderStateMi
             Icons.content_copy,
             "Encuesta\nNavideña",
             () {
-
+              Navigator.push(context, MaterialPageRoute(builder: (context) => MainQuizScreen(participant: this.participant)));
             },
           ),
           ContainerTemplate.buildTileOption(
@@ -146,6 +147,30 @@ class MainScreenState extends State<MainScreen> with SingleTickerProviderStateMi
             [30, 0, 30, 30], 25,
             15, 15, 0.15, 30,
           ),
+          new Visibility(
+            visible: this.participant.canViewMail(),
+            child: new Center(
+              child: ContainerTemplate.buildFixedContainer(
+                new GestureDetector(
+                  child: Image.asset('assets/images/mail.png'),
+                  onTap: () {
+                    DialogTemplate.showMessage(
+                      context,
+                      "¡Has recibido una nota de Santa!\nDice lo siguiente:\n\n"
+                      + "\"¡Muy bien hecho " + this.participant.name + "! Has recolectado 4 cartas"
+                      + " y te hace falta una. Ayúdame a alistar mi trineo y te la daré.\n¡Sé que lo lograrás Jo Jo Jo!\""
+                      + "\n\n\n¿Estas listo? Debes de preparar su trineo, en la parte de atrás de la nota tiene inscrito el número ",
+                      "¡Sorpresa!",
+                      10,
+                    );
+                  },
+                ),
+                [0, 0, 0, 0], 25,
+                15, 15, 0.15, 30,
+                100, 100,
+              ),
+            ),
+          ),
         ],
       ),
     );
@@ -187,7 +212,7 @@ class MainScreenState extends State<MainScreen> with SingleTickerProviderStateMi
             () async {
             this.participant.homePressed++;
             if(this.participant.homePressed > 50 && !this.participant.obtainedCards[4]) {
-
+              this.participant.addCard(context, 'gift');
             }
             setState(() {
               this.navBar.setBoth(1);

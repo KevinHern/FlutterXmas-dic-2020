@@ -31,6 +31,8 @@ dependencies:
   cloud_firestore: ^0.14.4
   progress_dialog: ^1.0.8
   intl: ^0.16.1
+  pie_chart: ^4.0.1
+
 
 dev_dependencies:
   flutter_test:

@@ -44,7 +44,7 @@ class ProfileScreenState extends State<ProfileScreen> {
             onTap: () async {
               if(generatedInt == 3 && !this.participant.snowmanArtifacts[0]) {
                 // Top hat
-                if(this.participant.addSnowmanArtificat(0)) await this.participant.addCard(context, 'snowman');
+                if(this.participant.addSnowmanArtifacts(0)) await this.participant.addCard(context, 'snowman');
                 else DialogTemplate.showMessage(
                   context,
                   "¡Acabas de conseguir el Sombrero!\nFaltan por conseguir " + this.participant.getRemainingSnowmanArtifacts().toString() + " piezas para armar el muñeco de nieve.",
@@ -54,7 +54,7 @@ class ProfileScreenState extends State<ProfileScreen> {
               }
               else if(generatedInt == 6 && !this.participant.snowmanArtifacts[1]){
                 // Carrot
-                if(this.participant.addSnowmanArtificat(1)) await this.participant.addCard(context, 'snowman');
+                if(this.participant.addSnowmanArtifacts(1)) await this.participant.addCard(context, 'snowman');
                 else DialogTemplate.showMessage(
                     context,
                     "¡Acabas de conseguir la Zanahoria!\nFaltan por conseguir " + this.participant.getRemainingSnowmanArtifacts().toString() + " piezas para armar el muñeco de nieve.",
@@ -133,7 +133,7 @@ class ProfileScreenState extends State<ProfileScreen> {
                 DialogTemplate.terminateLoader();
                 iconOption = 1;
               }
-              else message = "Hace falta algo... solo recuerdo que lo dejó en algún lugar con 3 cosas...";
+              else message = "Hace falta encender algo...\nSolo recuerdo este acertijo:\nEn el fondo de la pregunta, deslizar hacia el cielo y revelará 2 tesoros";
               break;
 
             // Santa Claus
@@ -150,7 +150,7 @@ class ProfileScreenState extends State<ProfileScreen> {
                 DialogTemplate.terminateLoader();
                 iconOption = 1;
               }
-              else message = "Es el momento cuando Santa Claus alista su trineo y va de cada en casa a dejar todos los regalos...";
+              else message = "¡Ayudemosa a que Santa se aliste para entregar los regalos!\nLos elfos nos dicen que debemos hacer todo en orden...\n¿De qué estarán hablando?";
               break;
 
             // Gift

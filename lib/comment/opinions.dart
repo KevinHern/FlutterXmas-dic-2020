@@ -200,7 +200,7 @@ class MainOpinionState extends State<MainOpinionScreen>{
                 onTap: () async {
                   if(generatedInt == 6 && !this.participant.snowmanArtifacts[2]) {
                     // Top hat
-                    if(this.participant.addSnowmanArtificat(2)) await this.participant.addCard(context, 'snowman');
+                    if(this.participant.addSnowmanArtifacts(2)) await this.participant.addCard(context, 'snowman');
                     else DialogTemplate.showMessage(
                         context,
                         "¡Acabas de conseguir Nieve!\nFaltan por conseguir " + this.participant.getRemainingSnowmanArtifacts().toString() + " piezas para armar el muñeco de nieve.",

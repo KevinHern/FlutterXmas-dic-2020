@@ -13,7 +13,14 @@ class Participant{
   // For snowman
   List<bool> snowmanArtifacts;
   int collectedSnowmanArtifacts;
+  int answeredQuizQuestions;
+  // For gift
   int homePressed;
+  // For Tree
+  bool lightsOn;
+  // For Santa
+  int santaSequential;
+  bool mailAvailable;
 
   Participant(String name){
     this.name = name;
@@ -25,18 +32,26 @@ class Participant{
     // Order of snowman Artifacts: Top Hat, Carrot, Snow, Eye1, Eye2
     this.snowmanArtifacts = [false, false, false, false, false];
     this.collectedSnowmanArtifacts = 0;
+    this.answeredQuizQuestions = 0;
+
+    // Tree
+    this.lightsOn = false;
+    this.mailAvailable = false;
+
+    // Santa
+    this.santaSequential = -1;
   }
 
   void pressedHome(BuildContext context){
     this.homePressed++;
   }
 
-  bool addSnowmanArtificat(int index){
+  bool addSnowmanArtifacts(int index){
     this.snowmanArtifacts[index] = true;
     this.collectedSnowmanArtifacts++;
-    bool allCollected = false;
+    bool allCollected = true;
     for(int i = 0; i < this.snowmanArtifacts.length; i++){
-      allCollected = allCollected && this.snowmanArtifacts[index];
+      allCollected = allCollected && this.snowmanArtifacts[i];
     }
     return allCollected;
   }
@@ -64,9 +79,17 @@ class Participant{
 
   Future addCard(BuildContext context, String card) async {
     this.obtainedCards[this.mapCard(card)] = true;
-    DialogTemplate.initLoader(context, "!Lograste algo importante!");
+    DialogTemplate.initLoader(context, "¡Lograste algo importante!");
     await (new CFQuery()).updateCollectedCard(card);
     DialogTemplate.terminateLoader();
     DialogTemplate.showMessage(context, "¡Algo mágico acaba de ocurrir!", "Aviso", 10);
+  }
+
+  bool canViewMail(){
+    bool allCollected = true;
+    for(int i = 0; i < 3; i++){
+      allCollected = allCollected && this.snowmanArtifacts[i];
+    }
+    return allCollected && this.snowmanArtifacts[4];
   }
 }
