@@ -5,6 +5,7 @@ import 'dart:math';
 
 // Models
 import 'package:xmas_2020/models/participant.dart';
+import 'package:xmas_2020/templates/button_template.dart';
 
 
 // Templates
@@ -13,6 +14,7 @@ import 'package:xmas_2020/templates/dialog_template.dart';
 
 // Backend
 import 'package:xmas_2020/backend/cfquery.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ProfileScreen extends StatefulWidget {
   final Participant participant;
@@ -23,21 +25,28 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class ProfileScreenState extends State<ProfileScreen> {
-  final Color _iconColor = new Color(0xFF002FD3).withOpacity(0.60);
+  Color _iconColor;
   final Participant participant;
   final List<String> _icons = ['fireworks', 'snowman', 'tree', 'santa', 'gift'];
   final List<String> _profilePics = ['snowflake', 'reindeer', 'fireplace', 'top_hat', 'gingerbread_man', 'ball_blue', 'carrot', 'sock', 'cherry', ];
   final Random rng = new Random();
   ProfileScreenState({Key key, @required this.participant});
 
+  @override
+  void initState(){
+    super.initState();
+    this._iconColor = new Color(this.participant.orangeColor).withOpacity(0.60);
+  }
+
   Widget _profilePicture(){
     int generatedInt = rng.nextInt(this._profilePics.length);
     return new Center(
       child: CircleAvatar(
         radius: 100,
-        foregroundColor: new Color(0xFF3949AB),
+        backgroundColor: new Color(this.participant.yellowColor),
         child: new CircleAvatar(
           radius: 90,
+          backgroundColor: new Color(this.participant.redColor),
           //backgroundImage: NetworkImage(this.employee.getProfilePicURL()),
           child: new GestureDetector(
             child: new Image.asset('assets/images/' + this._profilePics[generatedInt] + '.png'),
@@ -62,11 +71,34 @@ class ProfileScreenState extends State<ProfileScreen> {
                     10
                 );
               }
+              else if(generatedInt == 1 && this.participant.santaQuestActive){
+                this.participant.checkSantaSequential(
+                  context, 3,
+                  "(4) ¡Los renos definitivamente no deben faltar!\nPero antes de continuar, debemos visitar el taller de santa; ¡algo está pasando!",
+                );
+              }
             },
           ),
         ),
       ),
     );
+  }
+
+  String mapIndexToName(int index){
+    switch(index){
+      case 0:
+        return "Fuegos Artificiales";
+      case 1:
+        return "Muñeco de Nieve";
+      case 2:
+        return "Ábol de Navidad";
+      case 3:
+        return "Santa Claus";
+      case 4:
+        return "Regalo";
+      default:
+        return "Hacker!!!!!!";
+    }
   }
 
   Widget _buildCard(int index){
@@ -77,7 +109,7 @@ class ProfileScreenState extends State<ProfileScreen> {
           width: 50,
           child: new Image.asset('assets/images/' + this._icons[index] + (this.participant.obtainedCards[index]? "_obtained.png" : "_unobtained.png")),
         ),
-        title: new Text('${this._icons[index][0].toUpperCase()}${this._icons[index].substring(1)}'),
+        title: new Text(this.mapIndexToName(index)),
         subtitle: new Text(this.participant.obtainedCards[index]? "¡Conseguido!" : "Aun está escondido..."),
         trailing: new Icon(this.participant.obtainedCards[index]? Icons.info : Icons.lock, color: new Color(0x00000000),),
         onTap: () async {
@@ -169,7 +201,20 @@ class ProfileScreenState extends State<ProfileScreen> {
               else message = "¿Puede Santa visitar más de 50 casas en una hora?";
               break;
           }
-          DialogTemplate.showMessage(context, message, title, iconOption);
+          if(this.participant.santaQuestActive && index == 3) {
+            this.participant.checkSantaSequential(
+              context, 6,
+              "(7) ¡Muy bien hecho!\nLe diste su gorro y ahora Santa se dirige rápidamente a su trineo.\n¡Vamos a ver qué sucede!",
+            );
+            this.participant.mailAvailable = false;
+            this.participant.launchAvailable = true;
+          }
+          else if(this.participant.santaQuestActive && index == 4)
+            this.participant.checkSantaSequential(
+              context, 2,
+              "(3) ¡Guardar los regalos!\nRealmente eres muy bueno. Ya metimos los regalos en el saco pero el trineo no puede moverse por sí solo...",
+            );
+          else DialogTemplate.showMessage(context, message, title, iconOption);
         },
       ),
     );
@@ -182,7 +227,7 @@ class ProfileScreenState extends State<ProfileScreen> {
       separatorBuilder: (context, index) => Padding(
         padding: EdgeInsets.only(left: 20, right: 20),
         child: Divider(
-          color: new Color(0x000000).withOpacity(0.15),
+          color: new Color(this.participant.secondaryColor).withOpacity(0.25),
           thickness: 1,
         ),
       ),
@@ -208,12 +253,30 @@ class ProfileScreenState extends State<ProfileScreen> {
         ),
         ContainerTemplate.buildContainer(
           this._profileInfo(),
-          [30, 9, 30, 100],
+          [30, 9, 30, 10],
           20,
           15,
           15,
           0.15,
           30,
+        ),
+        new Padding(
+          padding: new EdgeInsets.only(bottom: 100, left: 30, right: 30),
+          child: ButtonTemplate.buildBasicButton(
+                () async {
+              if(this.participant.allCollected()){
+                const url = 'https://flutter.dev';
+                if (await canLaunch(url)) {
+                  await launch(url);
+                  } else {
+                    DialogTemplate.showMessage(context, "No se pudo abrir el navegador Browser, aquí te dejo el link para que lo ingreses manualmente\n\n:", "Aviso", 0);
+                  }
+              }
+              else DialogTemplate.showMessage(context, "Debes de coleccionar todas las cartas para descubrir el secreto", "¡Todavía No!", 0);
+            },
+            this.participant.redColor,
+            this.participant.allCollected()? "¡Desbloqueado!" : "Bloqueado...", 0xFFFFFFFF,
+          ),
         ),
       ],
     );

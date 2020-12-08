@@ -18,14 +18,27 @@ class Participant{
   int homePressed;
   // For Tree
   bool lightsOn;
-  // For Santa
-  int santaSequential;
-  bool mailAvailable;
+  /* For Santa:
+    1. Sleigh
+    2. Sack
+    3. Present
+    4. Reindeer
+    5. Rope
+    6. Santa Hat
+    7. Santa
+   */
+  int santaSequential, numPattern;
+  bool mailAvailable, santaQuestActive, simonSaysComplete, launchAvailable;
+  final int primaryColor = 0xFF146B3A;
+  final int secondaryColor = 0xFF003f13;
+  final int yellowColor = 0xFFF8B229;
+  final int orangeColor = 0xFFEA4630;
+  final int redColor = 0xFFBB2528;
 
   Participant(String name){
     this.name = name;
     // Order of cards: Fireworks, Snowman, Xmas Tree, Santa Claus, Gift
-    this.obtainedCards = [false, false, false, false, false];
+    this.obtainedCards = [true, true, true, false, true];
     this.homePressed = 0;
     this.alreadyCommented = false;
 
@@ -36,10 +49,14 @@ class Participant{
 
     // Tree
     this.lightsOn = false;
-    this.mailAvailable = false;
 
     // Santa
-    this.santaSequential = -1;
+    this.santaSequential = 4;
+    this.santaQuestActive = true;
+    this.simonSaysComplete = false;
+    this.numPattern = 0;
+    this.launchAvailable = false;
+    this.mailAvailable = true;
   }
 
   void pressedHome(BuildContext context){
@@ -88,8 +105,45 @@ class Participant{
   bool canViewMail(){
     bool allCollected = true;
     for(int i = 0; i < 3; i++){
-      allCollected = allCollected && this.snowmanArtifacts[i];
+      allCollected = allCollected && this.obtainedCards[i];
     }
-    return allCollected && this.snowmanArtifacts[4];
+    return allCollected && this.obtainedCards[4] && this.mailAvailable;
+  }
+
+  bool allCollected(){
+    bool allCollected = true;
+    for(int i = 0; i < this.obtainedCards.length; i++){
+      allCollected = allCollected && this.obtainedCards[i];
+    }
+    return allCollected;
+  }
+
+  void checkSantaSequential(BuildContext context, int expected, String message){
+    if(this.santaSequential == expected){
+      this.santaSequential++;
+      DialogTemplate.showMessage(
+        context,
+        message,
+        "¡Bien!",
+        1,
+      );
+    }
+    else if(this.santaSequential < expected) {
+      this.santaSequential = 0;
+      DialogTemplate.showMessage(
+        context,
+        "¡Oh no!\nNo es el orden correcto que debes de encontrar las cosas. Debes de empezar desde 0...\n\n¡Tu puedes!",
+        "¡Rayos!",
+        0,
+      );
+    }
+    else {
+      DialogTemplate.showMessage(
+        context,
+        "¡Esto ya lo tienes!",
+        "Aviso",
+        10,
+      );
+    }
   }
 }

@@ -50,27 +50,29 @@ class MainQuizScreenState extends State<MainQuizScreen> with SingleTickerProvide
           ContainerTemplate.buildFixedContainer(
             new Padding(
               padding: new EdgeInsets.all(10),
-              child: new Column(
-                children: <Widget>[
-                  new Text(
-                    "Section\nde Encuesta",
-                    style: new TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 30,
-                        color: new Color(0xFF002FD3)
+              child: new SingleChildScrollView(
+                child: new Column(
+                  children: <Widget>[
+                    new Text(
+                      "Sección\nde Encuesta",
+                      style: new TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 30,
+                          color: new Color(this.participant.yellowColor)
+                      ),
+                      textAlign: TextAlign.center,
                     ),
-                    textAlign: TextAlign.center,
-                  ),
-                  new Padding(
-                    padding: new EdgeInsets.only(bottom: 5, top: 5),
-                    child: new Divider(color: new Color(0x000000).withOpacity(0.15), thickness: 1,),
-                  ),
-                  new Text(
-                    "En esta sección podrás contestar 5 ->preguntas<- rápidas. Todas son de selección múltiple.\n\nAdicionalmente podrás ver las estadísticas de lo que han opinado otros chapines.\n¡Diviértete!",
-                    style: new TextStyle(fontSize: 18),
-                  ),
-                ],
-              ),
+                    new Padding(
+                      padding: new EdgeInsets.only(bottom: 5, top: 5),
+                      child: new Divider(color: new Color(0x000000).withOpacity(0.15), thickness: 1,),
+                    ),
+                    new Text(
+                      "En esta sección podrás contestar 5 ->preguntas<- rápidas. Todas son de selección múltiple.\n\nAdicionalmente podrás ver las estadísticas de lo que han opinado otros chapines.\n¡Diviértete!",
+                      style: new TextStyle(fontSize: 18),
+                    ),
+                  ],
+                ),
+              )
             ),
             [30, 0, 30, 30], 25,
             15, 15, 0.15, 30,
@@ -91,7 +93,7 @@ class MainQuizScreenState extends State<MainQuizScreen> with SingleTickerProvide
                           child: new Container(
                             width: 50,
                             height: 50,
-                            child: new Image.asset('assets/images/coal.png'),
+                            child: (this.participant.santaQuestActive)? new Image.asset('assets/images/sack.png') : new Image.asset('assets/images/coal.png'),
                           ),
                           onTap: () async {
                             if(!this.participant.snowmanArtifacts[3]) {
@@ -102,6 +104,12 @@ class MainQuizScreenState extends State<MainQuizScreen> with SingleTickerProvide
                                   "¡Acabas de conseguir el Ojo #1!\nFaltan por conseguir " + this.participant.getRemainingSnowmanArtifacts().toString() + " piezas para armar el muñeco de nieve.",
                                   "Aviso",
                                   10
+                              );
+                            }
+                            else if(this.participant.santaQuestActive) {
+                              this.participant.checkSantaSequential(
+                                context, 1,
+                                "(2) ¡Perfecto!\n¿Qué podremos hacer con el saco?",
                               );
                             }
                           },

@@ -6,6 +6,7 @@ import 'package:xmas_2020/templates/dialog_template.dart';
 import 'package:xmas_2020/profile/profile_screen.dart';
 import 'package:xmas_2020/comment/opinions.dart';
 import 'package:xmas_2020/quiz/quiz_main_screen.dart';
+import 'package:xmas_2020/workshop/workshop_main_screen.dart';
 
 // Templates
 import 'package:xmas_2020/templates/container_template.dart';
@@ -18,6 +19,7 @@ import 'package:xmas_2020/models/participant.dart';
 
 // Backend
 import 'package:xmas_2020/backend/cfquery.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Screen extends StatelessWidget {
   final Participant participant;
@@ -41,7 +43,7 @@ class MainScreen extends StatefulWidget {
 
 class MainScreenState extends State<MainScreen> with SingleTickerProviderStateMixin {
   final Participant participant;
-  bool isActive;
+  bool isActive, landedWidget = false;
   //Option option;
   NavBar navBar;
   final int _iconLabelColor = 0xFF002FD3;
@@ -54,6 +56,7 @@ class MainScreenState extends State<MainScreen> with SingleTickerProviderStateMi
     super.initState();
     navBar = new NavBar(1, 1);
     this._fadeAnimation = new FadeAnimation(this);
+    this.participant.santaSequential = 5;
   }
 
   MainScreenState({Key key, @required this.participant, @required this.isActive});
@@ -94,15 +97,84 @@ class MainScreenState extends State<MainScreen> with SingleTickerProviderStateMi
             },
           ),
           ContainerTemplate.buildTileOption(
-              Icons.feedback,
-              "Curiosidades",
-                  () {
+              (this.participant.santaSequential == 4)? Icons.report : Icons.check_box,
+              "Taller",
+              () {
                 //Navigator.push(context, MaterialPageRoute(builder: (context) => LogScreen()));
-
+                if(this.participant.santaSequential == 4 && this.participant.santaQuestActive)
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => WorkshopScreen(participant: this.participant,)));
+                else
+                  DialogTemplate.showMessage(context, "Todo parece estar tranquilo en el taller de Santa...", "Aviso", 10);
               }
           ),
         ],
       ),
+    );
+  }
+
+  Widget _buildBoard(){
+    return ContainerTemplate.buildContainer(
+      new Padding(
+        padding: new EdgeInsets.all(10),
+        child: new SingleChildScrollView(
+          child: new Column(
+            children: <Widget>[
+              new Text(
+                "Caza Navideña",
+                style: new TextStyle(
+                    fontWeight: FontWeight.bold, fontSize: 30,
+                    color: new Color(this.participant.yellowColor)
+                ),
+                textAlign: TextAlign.center,
+              ),
+              new Padding(
+                padding: new EdgeInsets.only(bottom: 5, top: 5),
+                child: new Divider(color: new Color(0x000000).withOpacity(0.15), thickness: 1,),
+              ),
+              new Text(
+                "Kevin Hernández",
+                style: new TextStyle(fontSize: 18), textAlign: TextAlign.center,
+              ),
+              new Padding(
+                padding: new EdgeInsets.only(bottom: 5, top: 5),
+                child: new Divider(color: new Color(0x000000).withOpacity(0.15), thickness: 1,),
+              ),
+              new Column(
+                children: <Widget>[
+                  new Text(
+                    "¡Bienvenido!\nEsta es una aplicación diseñada para la competencia Navideña Flutter Guatemala 2020. Esta app consiste en que debes"
+                        + " de coleccionar 5 cartas navideñas las cuales se obtienen al completar diversos retos. Espero disfrutes esta pequeña aventura. ¡Chispudo!\n",
+                    style: new TextStyle(fontSize: 15),
+                  ),
+                  new GestureDetector(
+                    onTap: () async {
+                      const url = 'https://www.instagram.com/kevinh.92/';
+                      if (await canLaunch(url)) {
+                        await launch(url);
+                      } else {
+                        DialogTemplate.showMessage(context, "No se pudo abrir el navegador Browser, aquí te dejo el link para que lo ingreses manualmente\n\n:", "Aviso", 0);
+                      }
+                    },
+                    child: new Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+                        new Container(
+                          height: 35,
+                          width: 35,
+                          child: new Image.asset('assets/images/instagram.png'),
+                        ),
+                        new Text("@kevinh.92", style: new TextStyle(fontWeight: FontWeight.bold, fontSize: 18),),
+                      ],
+                    ),
+                  ),
+                ],
+              )
+            ],
+          ),
+        )
+      ),
+      [30, 0, 30, 20], 25,
+      15, 15, 0.15, 30,
     );
   }
 
@@ -111,66 +183,112 @@ class MainScreenState extends State<MainScreen> with SingleTickerProviderStateMi
       child: ListView(
         shrinkWrap: true,
         children: <Widget>[
-          ContainerTemplate.buildContainer(
-            new Padding(
-              padding: new EdgeInsets.all(10),
-              child: new Column(
-                children: <Widget>[
-                  new Text(
-                    "Caza Navideña",
-                    style: new TextStyle(
-                        fontWeight: FontWeight.bold, fontSize: 30,
-                        color: new Color(0xFF002FD3)
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                  new Padding(
-                    padding: new EdgeInsets.only(bottom: 5, top: 5),
-                    child: new Divider(color: new Color(0x000000).withOpacity(0.15), thickness: 1,),
-                  ),
-                  new Text(
-                    "Kevin Hernández",
-                    style: new TextStyle(fontSize: 18), textAlign: TextAlign.center,
-                  ),
-                  new Padding(
-                    padding: new EdgeInsets.only(bottom: 5, top: 5),
-                    child: new Divider(color: new Color(0x000000).withOpacity(0.15), thickness: 1,),
-                  ),
-                  new Text(
-                    "¡Bienvenido!\nEsta es una aplicación diseñada para la competencia Navideña Flutter Guatemala 2020. Esta app consiste en que debes"
-                    + " de coleccionar 5 cartas navideñas las cuales se obtienen al completar diversos retos. Espero disfrutes esta pequeña aventura. ¡Chispudo!",
-                    style: new TextStyle(fontSize: 15),
-                  ),
-                ],
-              ),
-            ),
-            [30, 0, 30, 30], 25,
-            15, 15, 0.15, 30,
-          ),
-          new Visibility(
-            visible: this.participant.canViewMail(),
-            child: new Center(
-              child: ContainerTemplate.buildFixedContainer(
-                new GestureDetector(
-                  child: Image.asset('assets/images/mail.png'),
-                  onTap: () {
-                    DialogTemplate.showMessage(
-                      context,
-                      "¡Has recibido una nota de Santa!\nDice lo siguiente:\n\n"
-                      + "\"¡Muy bien hecho " + this.participant.name + "! Has recolectado 4 cartas"
-                      + " y te hace falta una. Ayúdame a alistar mi trineo y te la daré.\n¡Sé que lo lograrás Jo Jo Jo!\""
-                      + "\n\n\n¿Estas listo? Debes de preparar su trineo, en la parte de atrás de la nota tiene inscrito el número ",
-                      "¡Sorpresa!",
-                      10,
-                    );
-                  },
+          new Stack(
+            alignment: Alignment.center,
+            children: <Widget>[
+              new GestureDetector(
+                onTap: (){
+                  this.participant.checkSantaSequential(
+                    context, 5,
+                    "(6) ¡Tenemos el gorro perdido de Santa!\nSolo falta encontrar al personaje más importante de la Navidad.",
+                  );
+                  setState(() {
+                  });
+                },
+                child: new Container(
+                  padding: new EdgeInsets.only(bottom: 20),
+                  height: 100,
+                  width: 100,
+                  child: Image.asset('assets/images/santa_hat.png'),
                 ),
-                [0, 0, 0, 0], 25,
-                15, 15, 0.15, 30,
-                100, 100,
               ),
-            ),
+              (this.participant.santaQuestActive && this.participant.santaSequential == 5)?
+                new Draggable(
+                  data: 'FLutter',
+                  feedback: this._buildBoard(),
+                  child: this._buildBoard(),
+                  childWhenDragging: new Container(),
+                ) :
+              this._buildBoard(),
+            ],
           ),
+          new Stack(
+            alignment: Alignment.center,
+            children: <Widget>[
+              new Visibility(
+                visible: this.participant.canViewMail(),
+                child: new Center(
+                  child: ContainerTemplate.buildFixedContainer(
+                    new GestureDetector(
+                      child: new Container(
+                        width: 75,
+                        height: 75,
+                        child: Image.asset('assets/images/mail.png'),
+                      ),
+                      onTap: () {
+                        this.participant.santaQuestActive = true;
+                        DialogTemplate.showMessage(
+                          context,
+                          "¡Has recibido una nota de Santa!\nDice lo siguiente:\n\n"
+                              + "\"¡Muy bien hecho " + this.participant.name + "!\nHas recolectado 4 cartas"
+                              + " y te hace falta una. Ayúdame a alistar mi trineo y te la daré.\n¡Sé que lo lograrás Jo Jo Jo!\""
+                              + "\n\n\n¿Estas listo? Debes de preparar su trineo, en la parte de atrás de la nota tiene inscrito el número 7",
+                          "¡Sorpresa!",
+                          10,
+                        );
+                      },
+                    ),
+                    [0, 0, 0, 0], 25,
+                    15, 15, 0.15, 30,
+                    100, 100,
+                  ),
+                ),
+              ),
+              new Visibility(
+                visible: this.participant.launchAvailable,
+                child: new Center(
+                  child: ContainerTemplate.buildFixedContainer(
+                    new GestureDetector(
+                      child: new Container(
+                        width: 75,
+                        height: 75,
+                        child: Image.asset('assets/images/alert.png'),
+                      ),
+                      onTap: () async {
+                        try{
+                          this.participant.launchAvailable = false;
+                          this.participant.mailAvailable = false;
+                          this.participant.santaQuestActive = false;
+                          await DialogTemplate.showFinalMessage(context, 10);
+                          await this.participant.addCard(context, 'santa');
+                          setState(() {});
+                        }
+                        catch(error){
+                          DialogTemplate.showMessage(context, "Algo salió mal, ¡pero apúrate que tienes que ver lo último!", "Title", 0);
+                        }
+                      },
+                    ),
+                    [0, 0, 0, 0], 25,
+                    15, 15, 0.15, 30,
+                    100, 100,
+                  ),
+                ),
+              ),
+              new DragTarget(
+                onAccept: (value) {
+                  setState(() {
+                    this.landedWidget = true;
+                  });
+                },
+                onWillAccept: (value) {
+                  return true;
+                },
+                builder: (context, candidates, rejects) {
+                  return this.landedWidget? this._buildBoard() : new Container();
+                },
+              ),
+            ],
+          )
         ],
       ),
     );

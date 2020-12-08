@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:xmas_2020/models/navbar.dart';
 
 class NavBarTemplate {
-  static final _FABcolor = new Color(0xFF00227B);
-  static final _bottomNavBarColor = new Color(0xFF3949AB);
+  static final _FABcolor = new Color(0xFF003f13);
+  static final _bottomNavBarColor = new Color(0xFF146B3A);
 
   static buildFAB(IconData icon, Function onTapFunction, String heroTag){
     return new FloatingActionButton(
@@ -71,8 +71,8 @@ class NavBarTemplate {
           decoration: new BoxDecoration(
             gradient: new LinearGradient(
                 colors: [
-                  const Color(0x003949AB),
-                  const Color(0xFF002FD3),
+                  const Color(0x004a9a65),
+                  const Color(0xFF146b3a),
                 ],
                 begin: const FractionalOffset(0.0, 0.0),
                 end: const FractionalOffset(1.0, 0.0),

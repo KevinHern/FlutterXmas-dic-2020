@@ -49,8 +49,8 @@ class MainOpinionState extends State<MainOpinionScreen>{
   final _opinionIcons = ['elf', 'candy_bar', 'penguin', 'bell', 'gingerbread_house', 'sleigh', 'snowstorm'];
   final Random rng = new Random();
   final int _iconLabelColor = 0xFF002FD3;
-  final int _borderColor = 0xff856fdd;
-  final int _borderoFocusColor = 0xff5436cf;
+  final int _borderColor = 0xffffc554;
+  final int _borderoFocusColor = 0xffc08300;
   MainOpinionState({Key key, @required this.participant, @required this.questions});
 
   String actualQuestion = "question1";
@@ -134,7 +134,7 @@ class MainOpinionState extends State<MainOpinionScreen>{
           children: <Widget>[
             this._buildTitle(),
             FormTemplate.buildMultiTextInput(
-                this._opinionController, "¿Qué piensas?", Icons.comment, this._iconLabelColor, this._borderColor, this._borderoFocusColor
+                this._opinionController, "¿Qué piensas?", Icons.comment, this.participant.primaryColor, 0xFF4a9a65, this.participant.secondaryColor
             ),
             new Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -159,7 +159,7 @@ class MainOpinionState extends State<MainOpinionScreen>{
                       }
                       else DialogTemplate.showMessage(context, "¡No seas tímido!\nDinos realmente lo que piensas", "Aviso", 0);
                     },
-                    0xFF002FD3,
+                    this.participant.yellowColor,
                     "Publicar",
                     0xFFFFFFFF
                 ),
@@ -199,13 +199,19 @@ class MainOpinionState extends State<MainOpinionScreen>{
                 ),
                 onTap: () async {
                   if(generatedInt == 6 && !this.participant.snowmanArtifacts[2]) {
-                    // Top hat
+                    // Snow
                     if(this.participant.addSnowmanArtifacts(2)) await this.participant.addCard(context, 'snowman');
                     else DialogTemplate.showMessage(
                         context,
                         "¡Acabas de conseguir Nieve!\nFaltan por conseguir " + this.participant.getRemainingSnowmanArtifacts().toString() + " piezas para armar el muñeco de nieve.",
                         "Aviso",
                         10
+                    );
+                  }
+                  else if(generatedInt == 5 && this.participant.santaQuestActive){
+                    this.participant.checkSantaSequential(
+                      context, 0,
+                      "(1) ¡No podemos preparar el trineo de Santa sin un trineo!\n¿Qué sigue ahora...?",
                     );
                   }
                 },
@@ -255,7 +261,7 @@ class MainOpinionState extends State<MainOpinionScreen>{
       decoration: new BoxDecoration(
         border: Border.all(
             width: 1,
-            color: Color(0xFFd9b0ff).withOpacity(0.5),
+            color: new Color(this.participant.orangeColor).withOpacity(0.5),
             style: BorderStyle.solid
         ),
         borderRadius: BorderRadius.all(Radius.circular(15)),

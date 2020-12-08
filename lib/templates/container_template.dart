@@ -2,9 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ContainerTemplate {
-  static final _tileIconColor = new Color(0xff3949AB);
-  static final _buttonColor = new Color(0xFF002FD3);
-  static final _buttonSplashColor = new Color(0xFF001f6e);
+  static final _tileIconColor = new Color(0xFFBB2528);
+  static final _buttonColor = new Color(0xFFBB2528);
+  static final _buttonSplashColor = new Color(0xFF830000);
 
   static Widget buildContainer(Widget widget, var size, double radius,
       double shadowOffsetX, double shadowOffsetY, double opacity, double blur){
