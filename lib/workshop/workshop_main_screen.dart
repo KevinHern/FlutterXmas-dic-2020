@@ -49,7 +49,7 @@ class WorkshopScreenState extends State<WorkshopScreen> with SingleTickerProvide
                   child: new Column(
                     children: <Widget>[
                       new Text(
-                        "Taller\nde Santa",
+                        "Taller de Santa",
                         style: new TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 30,
@@ -86,7 +86,7 @@ class WorkshopScreenState extends State<WorkshopScreen> with SingleTickerProvide
                   if(this.participant.simonSaysComplete)
                     this.participant.checkSantaSequential(
                       context, 4,
-                      "¡Gracias por ayudarnos!\nCreo que esta Cuerda (5) te podrá servir para que Santa pueda controlar a los renos.\nSabes... Ahorita acabo escuchar rumores que Santa perdió su gorrito",
+                      "¡Gracias por ayudarnos!\nCreo que esta Cuerda (5) te podrá servir para que Santa pueda controlar a los renos.\nSabes... Ahorita acabo escuchar rumores que Santa perdió su gorrito.",
                     );
                   else {
                     DialogTemplate.showMessage(

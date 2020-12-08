@@ -24,7 +24,7 @@ class LoginScreenState extends State<LoginScreen> {
   final TextEditingController _nameController = new TextEditingController();
   bool _hidePassword = true;
   final _formkey = GlobalKey<FormState>();
-  final Color primaryColor = new Color(0xFF3949AB);
+  final Color primaryColor = new Color(0xFFBB2528);
   bool isInLogin = true;
 
 
@@ -95,10 +95,10 @@ class LoginScreenState extends State<LoginScreen> {
             DialogTemplate.showMessage(context, "Ingresa un nombre no vacío y que use un máximo de 25 caracteres", "Aviso", 10);
           }
         },
-        color: new Color(0xFF0D39D6),
+        color: new Color(0xFFF8B229),
         textColor: Colors.white,
         child: Text("¡Empezar!",
-            style: TextStyle(fontSize: 18)),
+            style: TextStyle(fontSize: 18, color: Colors.black),),
       ),
     );
   }
@@ -116,7 +116,7 @@ class LoginScreenState extends State<LoginScreen> {
             gradient: new LinearGradient(
                 begin: Alignment.topRight,
                 end: Alignment.bottomLeft,
-                colors: [Colors.white, new Color(0xff7ddeff)]
+                colors: [Colors.white, new Color(0xFF146B3A)]
             ),
           ),
           child: new Center(

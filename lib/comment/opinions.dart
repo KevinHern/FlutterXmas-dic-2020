@@ -1,4 +1,5 @@
 // Basic Imports
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
 import 'package:intl/intl.dart';
@@ -217,7 +218,8 @@ class MainOpinionState extends State<MainOpinionScreen>{
                 },
               )
             ),
-            title: new Wrap(
+            title: new Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 new Text(
                   formattedDate,
@@ -235,16 +237,16 @@ class MainOpinionState extends State<MainOpinionScreen>{
                     fontWeight: FontWeight.bold,
                   ),
                   textAlign: TextAlign.left,
-                )
+                ),
+                new Text(
+                  snapshot.get("opinion") + "\n",
+                  style: new TextStyle(
+                    fontSize: 17,
+                    color: Colors.black87,
+                  ),
+                  textAlign: TextAlign.left,
+                ),
               ],
-            ),
-            subtitle: new Text(
-              snapshot.get("opinion") + "\n",
-              style: new TextStyle(
-                fontSize: 17,
-                color: Colors.black87,
-              ),
-              textAlign: TextAlign.left,
             ),
           ),
 

@@ -93,7 +93,7 @@ class SimonSaysScreenState extends State<SimonSaysScreen>{
                     this.alreadySawPattern = false;
                     DialogTemplate.showMessage(context, "Te equivocaste :(", "¡Rayos!", 0);
                   }
-                  await Future.delayed(Duration(seconds: 1));
+                  await Future.delayed(Duration(milliseconds: 500));
                   setState(() {});
                   this.colorButtons[i-1] = 0xFF92e8f0;
                   setState(() {});
@@ -107,13 +107,11 @@ class SimonSaysScreenState extends State<SimonSaysScreen>{
       );
     }
 
-    return new SingleChildScrollView(
-      child: GridView.count(
-          shrinkWrap: true,
-          padding: new EdgeInsets.all(10),
-          crossAxisCount: 2,
-          children: buttons
-      ),
+    return new GridView.count(
+        shrinkWrap: true,
+        padding: new EdgeInsets.all(10),
+        crossAxisCount: 2,
+        children: buttons
     );
   }
 
@@ -158,7 +156,7 @@ class SimonSaysScreenState extends State<SimonSaysScreen>{
                       }
 
                     },
-                    0xFF0000FF,
+                    this.participant.redColor,
                     "Mirar Patrón", 0xFFFFFFFF,
                   ),
                 ),

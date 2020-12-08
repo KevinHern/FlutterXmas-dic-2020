@@ -38,7 +38,7 @@ class Participant{
   Participant(String name){
     this.name = name;
     // Order of cards: Fireworks, Snowman, Xmas Tree, Santa Claus, Gift
-    this.obtainedCards = [true, true, true, false, true];
+    this.obtainedCards = [false, false, false, false, false];
     this.homePressed = 0;
     this.alreadyCommented = false;
 
@@ -51,8 +51,8 @@ class Participant{
     this.lightsOn = false;
 
     // Santa
-    this.santaSequential = 4;
-    this.santaQuestActive = true;
+    this.santaSequential = 0;
+    this.santaQuestActive = false;
     this.simonSaysComplete = false;
     this.numPattern = 0;
     this.launchAvailable = false;

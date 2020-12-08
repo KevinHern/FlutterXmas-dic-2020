@@ -56,7 +56,6 @@ class MainScreenState extends State<MainScreen> with SingleTickerProviderStateMi
     super.initState();
     navBar = new NavBar(1, 1);
     this._fadeAnimation = new FadeAnimation(this);
-    this.participant.santaSequential = 5;
   }
 
   MainScreenState({Key key, @required this.participant, @required this.isActive});
@@ -173,7 +172,7 @@ class MainScreenState extends State<MainScreen> with SingleTickerProviderStateMi
           ),
         )
       ),
-      [30, 0, 30, 20], 25,
+      [30, 40, 30, 20], 25,
       15, 15, 0.15, 30,
     );
   }
@@ -238,7 +237,7 @@ class MainScreenState extends State<MainScreen> with SingleTickerProviderStateMi
                         );
                       },
                     ),
-                    [0, 0, 0, 0], 25,
+                    [0, 0, 0, 50], 25,
                     15, 15, 0.15, 30,
                     100, 100,
                   ),
@@ -274,19 +273,6 @@ class MainScreenState extends State<MainScreen> with SingleTickerProviderStateMi
                   ),
                 ),
               ),
-              new DragTarget(
-                onAccept: (value) {
-                  setState(() {
-                    this.landedWidget = true;
-                  });
-                },
-                onWillAccept: (value) {
-                  return true;
-                },
-                builder: (context, candidates, rejects) {
-                  return this.landedWidget? this._buildBoard() : new Container();
-                },
-              ),
             ],
           )
         ],
@@ -319,26 +305,81 @@ class MainScreenState extends State<MainScreen> with SingleTickerProviderStateMi
     });
   }
 
+  Future<bool> _onBackPressed() {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return new AlertDialog(
+            title: new Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                new Container(
+                  height: 40,
+                  width: 40,
+                  child: new Image.asset('assets/images/star.png'),
+                ),
+                new Padding(
+                  padding: new EdgeInsets.only(left: 15),
+                  child: new Text('Advertencia'),
+                ),
+              ],
+            ),
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(20.0))),
+            content: new SingleChildScrollView(
+              child: new Text('Si sales ahorita de la aplicación perderás todo tu progreso.\n¿Estás seguro que quieres salir?'),
+            ),
+            actions: <Widget>[
+              new FlatButton(
+                onPressed: () {
+                  Navigator.of(context).pop(true);
+                },
+                child: new Container(
+                  height: 30,
+                  width: 30,
+                  child: Image.asset('assets/images/snowflake_green.png'),
+                ),
+              ),
+              new FlatButton(
+                onPressed: () {
+                  Navigator.of(context).pop(false);
+                },
+                child: new Container(
+                  height: 30,
+                  width: 30,
+                  child: Image.asset('assets/images/snowflake_red.png'),
+                ),
+              ),
+            ],
+          );
+        }
+    ) ??
+        false;
+  }
+
   @override
   Widget build(BuildContext context) {
-    return NavBarTemplate.buildBottomNavBar(
-      this.navBar,
-      NavBarTemplate.buildTripletItems([Icons.menu, Icons.person], ["Menu", "Perfil"]),
-      navOnTap,
-      NavBarTemplate.buildFAB(
-          Icons.home,
-            () async {
-            this.participant.homePressed++;
-            if(this.participant.homePressed > 50 && !this.participant.obtainedCards[4]) {
-              this.participant.addCard(context, 'gift');
-            }
-            setState(() {
-              this.navBar.setBoth(1);
-            });
-          },
-          "main_screen_fab"
+    return WillPopScope(
+      onWillPop: _onBackPressed,
+      child: NavBarTemplate.buildBottomNavBar(
+        this.navBar,
+        NavBarTemplate.buildTripletItems([Icons.menu, Icons.person], ["Menu", "Perfil"]),
+        navOnTap,
+        NavBarTemplate.buildFAB(
+            Icons.home,
+                () async {
+              this.participant.homePressed++;
+              if(this.participant.homePressed > 50 && !this.participant.obtainedCards[4]) {
+                this.participant.addCard(context, 'gift');
+              }
+              setState(() {
+                this.navBar.setBoth(1);
+              });
+            },
+            "main_screen_fab"
+        ),
+        this._fadeAnimation.fadeNow(this.returnScreen()),
       ),
-      this._fadeAnimation.fadeNow(this.returnScreen()),
     );
   }
 }
