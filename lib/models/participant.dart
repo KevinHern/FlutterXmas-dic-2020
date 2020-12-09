@@ -130,6 +130,10 @@ class Participant{
     }
     else if(this.santaSequential < expected) {
       this.santaSequential = 0;
+      this.simonSaysComplete = false;
+      this.numPattern = 0;
+      this.launchAvailable = false;
+      this.mailAvailable = true;
       DialogTemplate.showMessage(
         context,
         "¡Oh no!\nNo es el orden correcto que debes de encontrar las cosas. Debes de empezar desde 0...\n\n¡Tu puedes!",

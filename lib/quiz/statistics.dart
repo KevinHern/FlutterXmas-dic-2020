@@ -38,7 +38,7 @@ class StatisticsScreenState extends State<StatisticsScreen>{
   int actualQuestion;
   Map<String, double> dataMap;
   List<Color> colorList;
-  int totalPersonas;
+  double totalPersonas;
 
   @override
   void initState(){
@@ -83,6 +83,15 @@ class StatisticsScreenState extends State<StatisticsScreen>{
                 if(this.actualQuestion > 0) {
                   DialogTemplate.initLoader(context, "Cargando...");
                   this.dataMap = await (new CFQuery()).getQuestionAnswers(this.actualQuestion - 1);
+                  try{
+                    this.totalPersonas = 0;
+                    for(int i = 0; i < this.dataMap.length; i++){
+                      this.totalPersonas += this.dataMap[i.toString()];
+                    }
+                  }
+                  catch(error){
+                    this.totalPersonas = 0;
+                  }
                   DialogTemplate.terminateLoader();
                 }
                 setState(() {});
@@ -165,7 +174,7 @@ class StatisticsScreenState extends State<StatisticsScreen>{
                   visible: this.actualQuestion > 0,
                   child: new Padding(
                     padding: new EdgeInsets.only(bottom: 10),
-                    child: new Text(this.totalPersonas.toString() + " personas han contestado esta pregunta."),
+                    child: new Text(this.totalPersonas.toInt().toString() + " personas han contestado esta pregunta."),
                   ),
                 ),
 

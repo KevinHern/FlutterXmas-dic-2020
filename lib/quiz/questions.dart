@@ -31,6 +31,15 @@ class QuestionScreenState extends State<QuestionsScreen>{
     '¿Has botado alguna vez el Árbol de Navidad?',
 
   ];
+  final List<int> buttonsColors = [
+    0xFFa83234,
+    0xFF32a852,
+    0xFFa8a832,
+    0xFF325ba8,
+    0xFF5532a8,
+    0xFFa86d32,
+
+  ];
   QuestionScreenState({Key key, @required this.participant});
   int actualQuestion;
   
@@ -58,13 +67,13 @@ class QuestionScreenState extends State<QuestionsScreen>{
       case 0:
         return ['Tamal', 'Pavo'];
       case 1:
-        return ['Estrellitas', 'Volcanes'];
+        return ['Estrellas', 'Volcanes'];
       case 2:
         return ['El tracka tracka boom', 'Bombas', 'Abejitas', 'El Torito'];
       case 3:
         return ['Rojo', 'Verde', 'Amarillo', 'Blanco'];
       case 4:
-        return ['En mi casa', 'Asisto a una', 'No participo', '¿Qué es posada?'];
+        return ['En mi casa', 'Asisto a una', 'No participo'];
       case 5:
         return ['En mi casa', 'En la casa de un Familiar'];
       case 6:
@@ -95,7 +104,7 @@ class QuestionScreenState extends State<QuestionsScreen>{
                   DialogTemplate.showMessage(context, "¡Ooops!\nOcurrió un error, intenta otra vez", "Aviso", 10);
                 }
               },
-              0x00AA0000,
+              this.buttonsColors[i],
               options[i],
               0xFFFFFFFF,
             ),

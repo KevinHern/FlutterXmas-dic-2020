@@ -142,7 +142,7 @@ class MainScreenState extends State<MainScreen> with SingleTickerProviderStateMi
                 children: <Widget>[
                   new Text(
                     "¡Bienvenido!\nEsta es una aplicación diseñada para la competencia Navideña Flutter Guatemala 2020. Esta app consiste en que debes"
-                        + " de coleccionar 5 cartas navideñas las cuales se obtienen al completar diversos retos. Espero disfrutes esta pequeña aventura. ¡Chispudo!\n",
+                        + " de coleccionar 5 cartas navideñas las cuales se obtienen al completar diversos retos divertidos. Espero disfrutes esta pequeña aventura. ¡Chispudo porque requiere mucha imaginación y creatividad para superar los retos!\n",
                     style: new TextStyle(fontSize: 15),
                   ),
                   new GestureDetector(
@@ -231,7 +231,7 @@ class MainScreenState extends State<MainScreen> with SingleTickerProviderStateMi
                           "¡Has recibido una nota de Santa!\nDice lo siguiente:\n\n"
                               + "\"¡Muy bien hecho " + this.participant.name + "!\nHas recolectado 4 cartas"
                               + " y te hace falta una. Ayúdame a alistar mi trineo y te la daré.\n¡Sé que lo lograrás Jo Jo Jo!\""
-                              + "\n\n\n¿Estas listo? Debes de preparar su trineo, en la parte de atrás de la nota tiene inscrito el número 7",
+                              + "\n\n\n¿Estas listo? Debes de preparar su trineo, en la parte de atrás de la nota tiene inscrito el número 7.",
                           "¡Sorpresa!",
                           10,
                         );

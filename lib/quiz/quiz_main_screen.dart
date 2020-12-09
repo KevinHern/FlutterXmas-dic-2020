@@ -126,8 +126,8 @@ class MainQuizScreenState extends State<MainQuizScreen> with SingleTickerProvide
 
                             });
                           },
-                          activeTrackColor: Colors.blueGrey,
-                          activeColor: Colors.blue,
+                          activeTrackColor: new Color(this.participant.redColor),
+                          activeColor: new Color(this.participant.orangeColor),
                         ),
                       ),
                       [30, 170, 30, 70],

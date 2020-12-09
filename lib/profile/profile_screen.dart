@@ -125,8 +125,8 @@ class ProfileScreenState extends State<ProfileScreen> {
                 DialogTemplate.initLoader(context, "Cargando Carta...");
                 message = "Conocidos tambíen como 'cuetes'. "
                     + "Las estrellitas, los volcancitos, los chiltepitos, los canchinflines y las ametralladoras ... ¡son cuetes inolvidables!\n"
-                    + "Cuando es la medianoche, era el momento más alegre para los niños y jóvenes ya que era la hora de quemar todos los cuetes que se compraron "
-                    + "en el mercado, tiendas o puestos de barrio hace unos días atrás. Es como las luces campero pero en todo el país."
+                    + "Cuando es la medianoche, es el momento más alegre para los niños y jóvenes ya que es la hora de quemar todos los cuetes que se compraron "
+                    + "en el mercado, tiendas o puestos de barrio unos días atrás. Es como las luces campero pero en todo el país."
                     + "\nSi sobran cuetes, no volverán a ver la luz hasta nuevo año..."
                     + "\n\n" + (await (new CFQuery()).getCollectedCard('fireworks')).toString() + " chapin(es) han conseguido esta carta.";
                 DialogTemplate.terminateLoader();
@@ -141,9 +141,9 @@ class ProfileScreenState extends State<ProfileScreen> {
                 title = "Muñeco de Nieve";
                 DialogTemplate.initLoader(context, "Cargando Carta...");
                 message = "Los muñecos de nieve en Guatemala son muy raros de ver - ¡pero los muñecos de alambre son muy populares!.\n"
-                    + "Muchos soñamos con ver la nieve, jugar con ella y especialmente hacer un muñeco de nieve. En nuestro país no en todos los lugares nieva "
-                    + "como en otros países, pero eso no impide a que el chapín busque soluciones alternativas. Como lo chispudos que somos, "
-                    + "no hacemos muñecos de nieve como tal, sino que hacemos muñecos de barro, de alambre, incluso de papel para que podemos ponerlos afuera "
+                    + "Muchos soñamos con ver la nieve, jugar con ella y especialmente hacer un muñeco de nieve. En nuestro país no cae nieve "
+                    + "como en otros países (exceptuando ciertos lugares), pero eso no impide a que el chapín busque soluciones alternativas.\n\nComo lo chispudos que somos, "
+                    + "no hacemos muñecos de nieve como tal, sino que hacemos muñecos de barro, de alambre, incluso de papel para ponerlos afuera "
                     + "o adentro de nuestras casas."
                     + "\n\n" + (await (new CFQuery()).getCollectedCard('snowman')).toString() + " chapin(es) han conseguido esta carta.";
                 DialogTemplate.terminateLoader();
@@ -157,9 +157,9 @@ class ProfileScreenState extends State<ProfileScreen> {
               if(this.participant.obtainedCards[index]){
                 title = "Árbol de Navidad";
                 DialogTemplate.initLoader(context, "Cargando Carta...");
-                message = "Este adorno de decoración es muy típico de encontrar en las casas de los chapines. "
+                message = "Este adorno de decoración es muy típico de encontrar en las casas de los chapines.\n"
                     + "Todos los que queremos colocar un arbolito de navidad pasamos mucho tiempo tratando de encontrar las bombillas, "
-                    + " lucecitas y la estrella que se coloca en la punta. ¡El momento más alegre es cuando abrimos todos los regalos y canastas navideñas!"
+                    + " lucecitas y la estrella que se coloca en la punta.\n\n¡El momento más alegre es cuando abrimos todos los regalos y las canastas navideñas!"
                     + "\nNo hay que olvidar la gran polvazón..."
                     + "\n\n" + (await (new CFQuery()).getCollectedCard('tree')).toString() + " chapin(es) han conseguido esta carta.";
                 DialogTemplate.terminateLoader();
@@ -173,16 +173,16 @@ class ProfileScreenState extends State<ProfileScreen> {
               if(this.participant.obtainedCards[index]){
                 title = "Santa Claus";
                 DialogTemplate.initLoader(context, "Cargando Carta...");
-                message = "¡Este personaje icónico de la navidad siempre estará en nuestros corazones!\n"
+                message = "¡Este personaje icónico de la navidad siempre estará en nuestros corazones!\n\n"
                     + "Desde pequeños, siempre soñábamos con ver a Santa Claus ya sea en persona o montado en su trineo y con renos (¡Rudolf incluído!)."
                     + " Nos ilusionábamos mucho al ver a Santa Claus en un centro comercial y era divertido contarle sobre todos los regalos que queríamos "
-                    + "para Navidad. Y ese hombre hacía su trabajo muy bien, porque muchos de los regalos que le pedimos los encontrábamos debajo del Árbol de Navidad"
+                    + "para Navidad.\nY ese hombre hacía su trabajo muy bien, porque muchos de los regalos que le pedimos los encontrábamos debajo del Árbol de Navidad"
                     + "... claro, solo si nos portamos bien durante todo el año."
                 + "\n\n" + (await (new CFQuery()).getCollectedCard('santa')).toString() + " chapin(es) han conseguido esta carta.";
                 DialogTemplate.terminateLoader();
                 iconOption = 1;
               }
-              else message = "¡Ayudemosa a que Santa se aliste para entregar los regalos!\nLos elfos nos dicen que debemos hacer todo en orden...\n¿De qué estarán hablando?";
+              else message = "¡Ayudemos a a que Santa se aliste para entregar los regalos!\nLos elfos nos dicen que debemos hacer todo en orden...\n¿De qué estarán hablando?\n\nNota: Debes de conseguir las otra 4 cartas antes de conseguir esta.";
               break;
 
             // Gift

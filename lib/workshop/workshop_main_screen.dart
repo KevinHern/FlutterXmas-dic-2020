@@ -83,21 +83,21 @@ class WorkshopScreenState extends State<WorkshopScreen> with SingleTickerProvide
                 ),
                 onTap: () {
                   this.participant.santaQuestActive = true;
-                  if(this.participant.simonSaysComplete)
+                  if(this.participant.simonSaysComplete) {
                     this.participant.checkSantaSequential(
                       context, 4,
-                      "¡Gracias por ayudarnos!\nCreo que esta Cuerda (5) te podrá servir para que Santa pueda controlar a los renos.\nSabes... Ahorita acabo escuchar rumores que Santa perdió su gorrito.",
+                      "¡Gracias por ayudarnos!\nCreo que esta Cuerda (5) te podrá servir para que Santa pueda controlar a los renos.\nSabes... Ahorita acabo escuchar rumores que Santa perdió su gorrito, tal vez se le calló y está oculto detrás de algo...",
                     );
+                  }
                   else {
                     DialogTemplate.showMessage(
                       context,
                       "¡Que bueno que llegaste!\n\n"
                           + "Estábamos haciendo regalos pero por alguna extraña razón la magia se nos acabó y no podemos seguir produciendo...\n\n"
-                          + "Ayúdanos a superar los retos de Simón Dice para que regrese la magia.\n¡La magia depende de ti!",
+                          + "Ayúdanos a superar los retos de Simón Dice para que regrese la magia.\n¡La magia depende de ti... y el Taller y la Navidad!",
                       "¡Ayúdanos!",
                       10,
                     );
-                    Navigator.of(context).pop();
                   }
                 },
               ),
