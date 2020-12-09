@@ -265,7 +265,7 @@ class ProfileScreenState extends State<ProfileScreen> {
           child: ButtonTemplate.buildBasicButton(
                 () async {
               if(this.participant.allCollected()){
-                const url = 'https://flutter.dev';
+                const url = 'https://www.dropbox.com/s/c9m2ouhw4szmp91/LastMessage.png';
                 if (await canLaunch(url)) {
                   await launch(url);
                   } else {
