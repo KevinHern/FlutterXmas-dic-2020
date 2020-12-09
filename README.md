@@ -1,16 +1,11 @@
-# xmas_2020
+# ¡La Caza Comienza!
 
-A new Flutter application.
+Tu aventura virtual comienza cuando instales y abras la aplicación. Tu objetivo es conseguir las 5 Cartas de varias Figuras Icónicas de la Navidad, sin embargo, no es una tarea fácil. Hay diversos retos que debes de completar para adquirir alguna carta - ¡y algunos de esos retos requieren que uses tu asombrosa imagiación!
+Adicionalmente, esta aplicación te permite compartir lo que piensas sobre algunas preguntas sobre la Navidad y también te brinda la posibilidad de leer las respuestas de los demás chapines que han participado en esta aventura virtual.
+Si en algún momento no sabes que hacer, tendrás pistas sutiles que te diran qué debes de hacer.
 
-## Getting Started
+Si coleccionas las 5 cartas... ¡Desbloquearás algo mágico!
 
-This project is a starting point for a Flutter application.
+¡Buena suerte y éxitos!
+¡Lo lograrás!
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
