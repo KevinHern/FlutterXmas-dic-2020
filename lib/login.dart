@@ -85,10 +85,48 @@ class LoginScreenState extends State<LoginScreen> {
           borderRadius: BorderRadius.circular(30.0),
         ),
         //padding: new EdgeInsets.only(left: 20, right: 20),
-        onPressed: () {
+        onPressed: () async {
           if(this._formkey.currentState.validate() && this._nameController.text.length < 26) {
             Participant participant = new Participant(this._nameController.text);
             Firebase.initializeApp();
+            await showDialog(
+                context: context,
+                builder: (context) {
+                  return new AlertDialog(
+                    title: new Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+                        new Container(
+                          height: 40,
+                          width: 40,
+                          child: new Image.asset('assets/images/star.png'),
+                        ),
+                        new Padding(
+                          padding: new EdgeInsets.only(left: 15),
+                          child: new Text('Aviso'),
+                        ),
+                      ],
+                    ),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(20.0))),
+                    content: new SingleChildScrollView(
+                      child: new Text('Si en algún momento sales de la aplicación, pierdes todo el progreso que hayas obtenido hasta ese momento.'),
+                    ),
+                    actions: <Widget>[
+                      new FlatButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: new Container(
+                          height: 30,
+                          width: 30,
+                          child: Image.asset('assets/images/snowflake_green.png'),
+                        ),
+                      ),
+                    ],
+                  );
+                }
+            );
             Navigator.push(context, MaterialPageRoute(builder: (context) => Screen(participant: participant,)));
           }
           else {

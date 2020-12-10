@@ -122,7 +122,7 @@ class MainScreenState extends State<MainScreen> with SingleTickerProviderStateMi
                 "Caza Navideña",
                 style: new TextStyle(
                     fontWeight: FontWeight.bold, fontSize: 30,
-                    color: new Color(this.participant.yellowColor)
+                    color: new Color((this.participant.santaQuestActive && this.participant.santaSequential == 5) ? this.participant.redColor : this.participant.yellowColor)
                 ),
                 textAlign: TextAlign.center,
               ),

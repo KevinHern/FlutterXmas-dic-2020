@@ -165,7 +165,7 @@ class ProfileScreenState extends State<ProfileScreen> {
                 DialogTemplate.terminateLoader();
                 iconOption = 1;
               }
-              else message = "Hace falta encender algo...\nSolo recuerdo este acertijo:\nEn el fondo de la pregunta, deslizar hacia el cielo y revelará 2 tesoros";
+              else message = "Hace falta encender algo...\nSolo recuerdo este acertijo:\nEn el fondo de la pregunta, deslizar hacia el cielo y revelará 2 tesoros.";
               break;
 
             // Santa Claus
