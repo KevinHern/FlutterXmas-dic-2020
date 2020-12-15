@@ -10,3 +10,6 @@ Si coleccionas las 5 cartas... ¡Desbloquearás algo mágico!
 ¡Buena suerte y éxitos!
 ¡Lo lograrás!
 
+## Notas
+
+Solo es compatible con Android desde la versión 4.0 en adelante.
