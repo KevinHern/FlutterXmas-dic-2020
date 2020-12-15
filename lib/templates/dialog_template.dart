@@ -122,7 +122,7 @@ class DialogTemplate {
     );
   }
 
-  static void initLoader(BuildContext context, String message) {
+  static void initLoader(BuildContext context, String message) async {
     progress = new ProgressDialog(
         context,
         type: ProgressDialogType.Normal,
@@ -140,7 +140,7 @@ class DialogTemplate {
         messageTextStyle: TextStyle(
             color: Colors.black, fontSize: 19.0, fontWeight: FontWeight.w600)
     );
-    progress.show();
+    await progress.show();
   }
 
   static void terminateLoader() async {

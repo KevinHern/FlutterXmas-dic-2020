@@ -1,6 +1,7 @@
 // Basic Imports
 import 'package:flutter/material.dart';
 import 'package:pie_chart/pie_chart.dart';
+import 'package:progress_dialog/progress_dialog.dart';
 
 // Templates
 import 'package:xmas_2020/templates/dialog_template.dart';
@@ -39,6 +40,7 @@ class StatisticsScreenState extends State<StatisticsScreen>{
   Map<String, double> dataMap;
   List<Color> colorList;
   double totalPersonas;
+  ProgressDialog progressd;
 
   @override
   void initState(){
@@ -81,18 +83,32 @@ class StatisticsScreenState extends State<StatisticsScreen>{
 
                 this.actualQuestion = newValue;
                 if(this.actualQuestion > 0) {
-                  DialogTemplate.initLoader(context, "Cargando...");
+                  this.progressd = new ProgressDialog(
+                    context,
+                    type: ProgressDialogType.Normal,
+                  );
+                  this.progressd.style(
+                      message: "Cargando...",
+                      borderRadius: 10.0,
+                      backgroundColor: Colors.white,
+                      progressWidget: CircularProgressIndicator(
+                        valueColor: new AlwaysStoppedAnimation<Color>(new Color(0xFF146B3A)),
+                      ),
+                      elevation: 10.0,
+                      insetAnimCurve: Curves.easeInOut,
+                      messageTextStyle: TextStyle(
+                          color: Colors.black, fontSize: 19.0, fontWeight: FontWeight.w600)
+                  );
+                  await DialogTemplate.initLoader(context, "Cargando...");
                   this.dataMap = await (new CFQuery()).getQuestionAnswers(this.actualQuestion - 1);
                   try{
-                    this.totalPersonas = 0;
-                    for(int i = 0; i < this.dataMap.length; i++){
-                      this.totalPersonas += this.dataMap[i.toString()];
-                    }
+                    this.totalPersonas = this.dataMap.values.reduce((sum, element) => sum + element);
+                    await this.progressd.hide();
                   }
                   catch(error){
                     this.totalPersonas = 0;
+                    await this.progressd.hide();
                   }
-                  DialogTemplate.terminateLoader();
                 }
                 setState(() {});
               },
